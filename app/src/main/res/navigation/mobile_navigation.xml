@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BottomNavigationView を用いた複数タブ切り替えによる画面遷移を実現する場合 -->
+<!-- Jetpack Navigation 2.4.0 以降はこのファイルのように、BottomNaivgationView のタブと対応する Destination を Nested Navigation Graph とする。 -->
+<!-- Jetpack Navigation 2.4.0 以降 Multiple Backstack が導入され、タブごと独立した Backstack を持つようになったが、 -->
+<!-- Nested Navigation Graph を利用しないまま Jetpack Navigation 2.4.0 を使った場合、 -->
+<!-- DeepLink 等でトップレベルの startDestination (このファイルでは tab_home) 以外の BottomNavigationView のタブを開いたとき、 -->
+<!-- BottomNavigationView のタブ切り替えでトップレベルの startDestination に戻れなくなる問題が発生する。 -->
+<!-- その対応として IssueTracker でも提案されている Nested Navigation Graph を利用する。 -->
+<!-- ref: https://issuetracker.google.com/issues/194301895 -->
+<!-- ref: https://issuetracker.google.com/issues/228201897 -->
+<!-- ref: https://issuetracker.google.com/issues/273796472 -->
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/tab_home">
+
+    <!-- Nested Navigation Graph の ID を menu resource の ID と一致させる -->
+    <navigation
+        android:id="@+id/tab_home"
+        android:label="@string/title_home"
+        app:startDestination="@+id/navigation_home">
+
+        <fragment
+            android:id="@+id/navigation_home"
+            android:name="jp.co.giftmall.sample.navigation.ui.home.HomeFragment"
+            android:label="@string/title_home" />
+
+    </navigation>
+
+    <navigation
+        android:id="@+id/tab_dashboard"
+        android:label="@string/title_dashboard"
+        app:startDestination="@+id/navigation_dashboard">
+
+        <fragment
+            android:id="@+id/navigation_dashboard"
+            android:name="jp.co.giftmall.sample.navigation.ui.dashboard.DashboardFragment"
+            android:label="@string/title_dashboard" >
+
+            <deepLink app:uri="sample-app://nav/dashboard"/>
+
+        </fragment>
+
+    </navigation>
+
+    <navigation
+        android:id="@+id/tab_notifications"
+        android:label="@string/title_notifications"
+        app:startDestination="@+id/navigation_notifications">
+
+        <fragment
+            android:id="@+id/navigation_notifications"
+            android:name="jp.co.giftmall.sample.navigation.ui.notifications.NotificationsFragment"
+            android:label="@string/title_notifications" />
+
+    </navigation>
+
+    <!-- BottomNavigationView のタブと紐付かず、どの Nested Navigation Graph からも遷移可能な画面はトップレベルの Navigation Graph の子として定義する -->
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="jp.co.giftmall.sample.navigation.ui.settings.SettingsFragment"
+        android:label="@string/title_settings" />
+
+</navigation>
