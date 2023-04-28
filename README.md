@@ -6,7 +6,7 @@
 ## 主要なファイル
 
 - [MainActivity](https://github.com/lucheholdings/BottomNavigationSample/blob/main/app/src/main/java/jp/co/giftmall/sample/navigation/MainActivity.kt)
-  - Multiple Back Stacks に基づく各種実装を例示しています
+  - Multiple Back Stacks に基いて BottomNavigationView と Jetpack Navigation を連動させる各種実装を例示しています
 - [mobile_navigation.xml](https://github.com/lucheholdings/BottomNavigationSample/blob/main/app/src/main/res/navigation/mobile_navigation.xml)
   - [Nested Navigation Graph](https://developer.android.com/guide/navigation/navigation-nested-graphs) を用いた Multiple Back Stacks の実現に必要な構成を例示しています
 
